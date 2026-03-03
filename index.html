@@ -100,6 +100,35 @@
             font-weight: 500; color: #475569;
         }
         .quiz-opt:hover { border-color: #3b82f6; background-color: #eff6ff; color: #1e40af; }
+/* --- TERMINAL EASTER EGG OVERRIDES --- */
+        body.terminal-mode, body.terminal-mode main, body.terminal-mode section, body.terminal-mode nav, body.terminal-mode div {
+            background-color: #050505 !important;
+            border-color: #22c55e !important;
+            font-family: 'Courier New', Courier, monospace !important;
+            transition: all 0.3s ease;
+        }
+        body.terminal-mode h1, body.terminal-mode h2, body.terminal-mode h3, body.terminal-mode p, body.terminal-mode span, body.terminal-mode a, body.terminal-mode button, body.terminal-mode div {
+            color: #22c55e !important;
+        }
+        body.terminal-mode .interactive-bg {
+            background-image: radial-gradient(#14532d 1px, transparent 1px) !important;
+            background-color: #000 !important;
+        }
+        /* Hide non-essential UI elements in terminal mode */
+        body.terminal-mode .fab, body.terminal-mode .css-monitor-base {
+            display: none !important;
+        }
+        body.terminal-mode .css-server, body.terminal-mode .css-monitor {
+            background-color: transparent !important;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.2) !important;
+        }
+        /* CRT Scanline Overlay */
+        body.terminal-mode::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px; z-index: 9999; pointer-events: none; opacity: 0.4;
+        }
+        
     </style>
 </head>
 <body class="bg-stone-50 text-slate-800 font-sans antialiased selection:bg-blue-200 selection:text-blue-900 overflow-x-hidden">
@@ -462,12 +491,19 @@
                 ctx.lineWidth = 6;
                 ctx.lineCap = 'round';
                 
+                const isTerminal = document.body.classList.contains('terminal-mode');
+
                 if (isConnected) {
-                    ctx.strokeStyle = '#10b981'; ctx.shadowColor = '#059669'; ctx.shadowBlur = 15; ctx.stroke();
+                    ctx.strokeStyle = isTerminal ? '#22c55e' : '#10b981'; 
+                    ctx.shadowColor = isTerminal ? '#166534' : '#059669'; 
+                    ctx.shadowBlur = 15; ctx.stroke();
                     ctx.beginPath(); ctx.moveTo(x1, y1); ctx.bezierCurveTo(controlX1, controlY1, controlX2, controlY2, x2, y2);
                     ctx.lineWidth = 2; ctx.strokeStyle = '#ffffff'; ctx.setLineDash([10, 20]); ctx.lineDashOffset = -dashOffset; ctx.stroke(); ctx.setLineDash([]);
                 } else {
-                    ctx.strokeStyle = '#3b82f6'; ctx.shadowBlur = 0; ctx.stroke();
+                    ctx.strokeStyle = isTerminal ? '#22c55e' : '#3b82f6'; 
+                    ctx.shadowBlur = isTerminal ? 10 : 0; 
+                    ctx.shadowColor = isTerminal ? '#22c55e' : 'transparent';
+                    ctx.stroke();
                 }
             }
 
@@ -715,6 +751,57 @@
             function initScrollReveal() {
                 const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0.1 });
                 document.querySelectorAll('.reveal-section').forEach(el => observer.observe(el));
+            }
+
+            // --- EASTER EGG LOGIC ---
+            let secretBuffer = '';
+            const secretCode = 'hack';
+            
+            // Trigger 1: Keyboard (Desktop)
+            window.addEventListener('keydown', (e) => {
+                secretBuffer += e.key.toLowerCase();
+                if (secretBuffer.length > secretCode.length) {
+                    secretBuffer = secretBuffer.substring(1);
+                }
+                if (secretBuffer === secretCode) {
+                    toggleTerminalMode();
+                    secretBuffer = ''; // reset after success
+                }
+            });
+
+            // Trigger 2: Triple Click Footer Logo (Mobile/Desktop)
+            // Finds the "C4" text in the footer
+            const footerLogo = document.querySelector('footer .text-blue-600');
+            let clickCount = 0;
+            let clickTimer;
+            if(footerLogo) {
+                footerLogo.style.cursor = 'crosshair';
+                footerLogo.addEventListener('click', () => {
+                    clickCount++;
+                    clearTimeout(clickTimer);
+                    if (clickCount >= 3) {
+                        toggleTerminalMode();
+                        clickCount = 0;
+                    } else {
+                        // Reset clicks if they don't tap fast enough
+                        clickTimer = setTimeout(() => { clickCount = 0; }, 800);
+                    }
+                });
+            }
+
+            function toggleTerminalMode() {
+                document.body.classList.toggle('terminal-mode');
+                drawState(); // Force canvas to redraw with new colors
+                
+                // Change the main status text dynamically
+                if (document.body.classList.contains('terminal-mode')) {
+                    statusText.innerText = "ROOT_ACCESS_GRANTED";
+                    pcScreen.innerHTML = ">_ sudo su<br>>_ we're in.";
+                } else {
+                    // Revert text based on connection state
+                    statusText.innerText = state.connectionStep === 2 ? "Connected" : "Disconnected";
+                    if(state.connectionStep === 2) pcScreen.innerHTML = ">_ sys.ready()<br>>_ sync_c4";
+                }
             }
 
             // INIT
