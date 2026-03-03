@@ -125,9 +125,9 @@
                     <div class="text-sm font-bold uppercase tracking-widest text-slate-500 leading-tight border-l-2 border-slate-300 pl-2">Computer<br>Consulting</div>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#services" class="text-slate-600 hover:text-blue-600 font-medium transition">Services</a>
-                    <a href="#insights" class="text-slate-600 hover:text-blue-600 font-medium transition">Insights</a>
-                    <a href="https://app.gorelo.io/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-medium transition shadow-md">Client Login</a>
+                    <a href="#services" class="nav-link text-slate-600 hover:text-blue-600 font-medium transition">Services</a>
+                    <a href="#insights" class="nav-link text-slate-600 hover:text-blue-600 font-medium transition">Insights</a>
+                    <a href="https://login.gorelo.io/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-medium transition shadow-md">Client Login</a>
                 </div>
             </div>
         </div>
@@ -147,9 +147,12 @@
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6">
                 Your IT is <span id="status-text" class="text-red-500 transition-colors duration-500">Disconnected</span>.
             </h1>
-            <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-600 mb-12" id="instruction-text">
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-600 mb-4" id="instruction-text">
                 System offline. Tap the <strong>Server Rack</strong>, then tap the <strong>Workstation</strong> to patch the network and establish a secure connection with C4.
             </p>
+            <button id="skip-btn" class="text-sm font-medium text-slate-400 hover:text-blue-600 transition-colors mb-8 underline cursor-pointer relative z-20">
+                Skip Diagnostics & View Site
+            </button>
 
             <!-- The Game Area -->
             <div class="interactive-bg relative w-full max-w-4xl mx-auto h-[350px] md:h-[450px] rounded-2xl border-2 border-slate-300 shadow-inner overflow-hidden flex justify-between items-center p-4 md:p-16">
@@ -518,26 +521,32 @@
             // Port B (PC) Click
             portB.addEventListener('click', () => {
                 if (state.connectionStep === 1) {
-                    state.connectionStep = 2;
-                    unlockApplication();
+                    unlockApplication('services', false);
                 }
             });
 
-            // The "Aha" moment function
-            function unlockApplication() {
-                // UI Updates for connected state
-                portA.classList.replace('bg-blue-600', 'connected');
-                portB.classList.remove('pulse-active');
+            // The "Aha" moment function & Bypass Logic
+            function unlockApplication(targetId = 'services', isBypass = false) {
+                if (state.connectionStep === 2) return; // Prevent double trigger
+                state.connectionStep = 2;
+                
+                // Ensure UI reflects connected state (even if skipped)
+                portA.classList.remove('pulse-active', 'bg-blue-600');
+                portA.classList.add('connected');
+                portB.classList.remove('pulse-active', 'opacity-50', 'cursor-not-allowed');
                 portB.classList.add('connected');
                 
                 statusText.innerText = "Connected";
                 statusText.classList.replace('text-red-500', 'text-emerald-500');
                 
                 instructionText.innerHTML = "System online. Diagnostic complete. Data flowing securely.";
+                document.getElementById('skip-btn').classList.add('hidden'); // Hide skip button
                 
                 connectionBadge.innerText = "ONLINE";
-                connectionBadge.classList.replace('bg-blue-900', 'bg-emerald-900');
-                connectionBadge.classList.replace('text-blue-200', 'text-emerald-300');
+                connectionBadge.classList.remove('bg-slate-800', 'bg-blue-900');
+                connectionBadge.classList.add('bg-emerald-900');
+                connectionBadge.classList.remove('text-slate-300', 'text-blue-200');
+                connectionBadge.classList.add('text-emerald-300');
                 connectionBadge.classList.add('shadow-[0_0_15px_rgba(16,185,129,0.5)]');
 
                 // Hardware UI Updates
@@ -552,13 +561,41 @@
                 void mainContent.offsetWidth;
                 mainContent.classList.replace('opacity-0', 'opacity-100');
 
-                // Smooth scroll to services after a brief pause for effect
+                // Scroll to target (instant if bypassed, delayed if played naturally)
                 setTimeout(() => {
-                    document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+                    const targetEl = document.getElementById(targetId);
+                    if(targetEl) {
+                        // Subtract 80px to account for the sticky navbar height
+                        const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
+                        window.scrollTo({top: y, behavior: 'smooth'});
+                    }
                     initChart(); // Init chart only when visible
                     initScrollReveal(); // Start observing scroll
-                }, 1200);
+                }, isBypass ? 100 : 1200);
             }
+
+            // Bypass Button Listener
+            document.getElementById('skip-btn').addEventListener('click', () => unlockApplication('services', true));
+
+            // Navigation Links Listener (Intercept clicks to bypass)
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // Stop standard jump
+                    const targetId = link.getAttribute('href').substring(1); // Get "services" or "insights"
+                    
+                    if (state.connectionStep !== 2) {
+                        // Game not finished -> Unlock and jump
+                        unlockApplication(targetId, true);
+                    } else {
+                        // Game already finished -> Normal smooth scroll jump
+                        const targetEl = document.getElementById(targetId);
+                        if(targetEl) {
+                            const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
+                            window.scrollTo({top: y, behavior: 'smooth'});
+                        }
+                    }
+                });
+            });
 
             // --- DATA VISUALIZATION (Chart.js) ---
             const chartData = {
