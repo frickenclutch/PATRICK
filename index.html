@@ -12,6 +12,31 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ITService",
+      "name": "C4 Computer Consulting",
+      "url": "https://your-vercel-domain-here.vercel.app",
+      "telephone": "+13153947008",
+      "email": "c4helpdesk@c4computerconsulting.com",
+      "description": "C4 Computer Consulting provides enterprise-grade Managed IT Services, Cybersecurity, Cloud Solutions, 3CX, Blockchain Security, and Helpdesk Support.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "7611 NY-68",
+        "addressLocality": "Ogdensburg",
+        "addressRegion": "NY",
+        "postalCode": "13669",
+        "addressCountry": "US"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Ogdensburg"
+      },
+      "priceRange": "$$"
+    }
+    </script>
+
     <style>
         /* Custom Animations & Styles */
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
@@ -100,6 +125,36 @@
             font-weight: 500; color: #475569;
         }
         .quiz-opt:hover { border-color: #3b82f6; background-color: #eff6ff; color: #1e40af; }
+/* Tech Marquee Styles */
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-scroll {
+            animation: scroll-left 35s linear infinite;
+            width: 200%; /* Double width to fit both groups */
+        }
+        .animate-scroll:hover {
+            animation-play-state: paused;
+        }
+        .tech-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 0.5rem 1.5rem; margin: 0 1rem;
+            background-color: #f8fafc; border: 1px solid #e2e8f0;
+            border-radius: 9999px; font-weight: 800; color: #64748b;
+            white-space: nowrap; font-size: 0.875rem; letter-spacing: 0.05em;
+            text-transform: uppercase; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        .tech-badge:hover {
+            border-color: #3b82f6; color: #1e40af; background-color: #eff6ff; transform: scale(1.05);
+        }
+        /* Make badges neon in terminal mode */
+        body.terminal-mode .tech-badge {
+            background-color: transparent !important; border-color: #22c55e !important;
+            color: #22c55e !important; box-shadow: 0 0 10px rgba(34, 197, 94, 0.2) !important;
+        }
+        
 /* --- TERMINAL EASTER EGG OVERRIDES --- */
         body.terminal-mode, body.terminal-mode main, body.terminal-mode section, body.terminal-mode nav, body.terminal-mode div {
             background-color: #050505 !important;
@@ -228,9 +283,37 @@
         <!-- Welcome Banner -->
         <div class="bg-emerald-600 text-white py-4 shadow-md">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center font-medium flex items-center justify-center gap-3">
-                <span class="text-2xl">&#10003;</span> Connection Established. Core services unlocked. Welcome to optimized IT.
+                <span class="text-2xl">✓</span> Connection Established. Core services unlocked. Welcome to optimized IT.
             </div>
         </div>
+
+        <div class="bg-white py-6 border-b border-stone-200 overflow-hidden relative">
+            <div class="absolute left-0 top-0 w-16 md:w-32 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 w-16 md:w-32 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+            
+            <div class="flex animate-scroll">
+                <div class="flex w-1/2 justify-around items-center px-4">
+                    <span class="tech-badge">Microsoft 365</span>
+                    <span class="tech-badge">AWS</span>
+                    <span class="tech-badge">Cisco</span>
+                    <span class="tech-badge">3CX</span>
+                    <span class="tech-badge">Dell</span>
+                    <span class="tech-badge">Ubiquiti</span>
+                    <span class="tech-badge" style="color: #3b82f6; border-color: #bfdbfe; background-color: #eff6ff;">Blockchain Security</span>
+                </div>
+                <div class="flex w-1/2 justify-around items-center px-4">
+                    <span class="tech-badge">Microsoft 365</span>
+                    <span class="tech-badge">AWS</span>
+                    <span class="tech-badge">Cisco</span>
+                    <span class="tech-badge">3CX</span>
+                    <span class="tech-badge">Dell</span>
+                    <span class="tech-badge">Ubiquiti</span>
+                    <span class="tech-badge" style="color: #3b82f6; border-color: #bfdbfe; background-color: #eff6ff;">Blockchain Security</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="py-20 bg-stone-50 border-b border-stone-200" id="services">
 
         <!-- Services Section -->
         <section class="py-20 bg-stone-50 border-b border-stone-200" id="services">
