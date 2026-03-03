@@ -594,9 +594,55 @@
             // Handle Form Submission
             document.getElementById('lead-form').addEventListener('submit', (e) => {
                 e.preventDefault();
-                // In a real scenario, you would send data to a webhook/email server here.
-                document.getElementById('step-result').classList.add('hidden');
-                document.getElementById('step-success').classList.remove('hidden');
+                
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerText;
+                submitBtn.innerText = "Transmitting Data...";
+                submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+
+                // Package the data
+                const formData = new FormData();
+                
+                // --- PASTE YOUR ACCESS KEY HERE ---
+                formData.append('access_key', 'aee69d91-74a6-4ee8-8694-23f0913f5c10'); 
+                
+                formData.append('subject', 'New IT Diagnostic Lead');
+                formData.append('from_name', 'C4 Website Scanner');
+                formData.append('Name', document.getElementById('lead-name').value);
+                formData.append('Phone', document.getElementById('lead-phone').value);
+                formData.append('Email', document.getElementById('lead-email').value);
+                formData.append('Vulnerability_Score', state.quizScore);
+                
+                // Add Risk Level context based on score
+                let riskLevel = "Moderate";
+                if(state.quizScore > 100) riskLevel = "HIGH RISK";
+                else if(state.quizScore > 40) riskLevel = "ELEVATED RISK";
+                formData.append('Calculated_Risk_Level', riskLevel);
+
+                // Send to Web3Forms
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(async (response) => {
+                    const json = await response.json();
+                    if (response.status == 200) {
+                        // Success! Hide form, show success message
+                        document.getElementById('step-result').classList.add('hidden');
+                        document.getElementById('step-success').classList.remove('hidden');
+                    } else {
+                        console.log(response);
+                        alert("Transmission failed. Please call us directly.");
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert("Network error. Please call us directly.");
+                })
+                .finally(() => {
+                    submitBtn.innerText = originalText;
+                    submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                });
             });
 
             function resetQuiz() {
