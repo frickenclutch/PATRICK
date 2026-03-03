@@ -6,18 +6,7 @@
     <title>C4 Computer Consulting | Interactive IT Solutions</title>
     
     <!-- Chosen Palette: Warm Neutrals & Tech Blue (Stone-50, Slate-800, Blue-600, Emerald-500) -->
-    <!-- Application Structure Plan: 
-         - A "Gamified" Hero Section: Users must physically "connect" the server to the workstation to unlock the site, symbolizing C4's role in connecting and securing business IT.
-         - Hidden Content Reveal: Once connected, the full SPA is revealed, creating an "aha" moment.
-         - Services Grid: Clear, concise presentation of core offerings.
-         - Data Dashboard: A visual representation (Chart.js) showing the ROI of managed IT, strictly contained for responsiveness.
-         - Persistent Contact: A floating action button ensures the dialer is always one click away, regardless of the user's journey stage.
-         This structure ensures high engagement (Dr. LaFlair style) while maintaining practical B2B utility.
-    -->
-    <!-- Visualization & Content Choices:
-         - Interaction: Canvas-based "Cable" connection -> Goal: Engagement & Metaphor for IT integration -> Justification: Memorable first impression without heavy graphics.
-         - Chart: Bar Chart comparing Unmanaged vs Managed IT Costs -> Goal: Persuasion -> Justification: Clearly demonstrates financial ROI. Library: Chart.js.
-    -->
+    <!-- Application Structure Plan: Gamified Hero -> Services -> Data -> Interactive Lead Gen -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -25,10 +14,7 @@
 
     <style>
         /* Custom Animations & Styles */
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         .light-blink { animation: blink 1.5s infinite; }
         .light-blink-fast { animation: blink 0.5s infinite; }
         
@@ -39,24 +25,22 @@
         }
         .pulse-active { animation: pulse-ring 2s infinite; }
 
-        @keyframes dataFlow {
-            0% { background-position: 0 0; }
-            100% { background-position: 40px 0; }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .scanner-bar {
+            position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background-color: #3b82f6; box-shadow: 0 0 10px #3b82f6;
+            animation: scanline 2s linear infinite;
         }
 
         /* Strict Chart Container Requirements */
         .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 40vh;
-            max-height: 400px;
+            position: relative; width: 100%; max-width: 800px;
+            margin-left: auto; margin-right: auto; height: 40vh; max-height: 400px;
         }
-        @media (max-width: 640px) {
-            .chart-container { height: 300px; max-height: 300px; }
-        }
+        @media (max-width: 640px) { .chart-container { height: 300px; max-height: 300px; } }
 
         /* Hardware CSS Shapes (No SVG) */
         .css-server {
@@ -99,12 +83,8 @@
         }
 
         /* Smooth reveal */
-        .reveal-section {
-            opacity: 0; transform: translateY(30px); transition: all 1s ease-out;
-        }
-        .reveal-section.visible {
-            opacity: 1; transform: translateY(0);
-        }
+        .reveal-section { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        .reveal-section.visible { opacity: 1; transform: translateY(0); }
         
         /* Floating Dialer */
         .fab {
@@ -112,6 +92,14 @@
             transition: transform 0.2s, background-color 0.2s;
         }
         .fab:hover { transform: scale(1.1) translateY(-5px); }
+
+        /* Quiz Button Styles */
+        .quiz-opt {
+            border: 2px solid #e2e8f0; border-radius: 8px; padding: 12px; text-align: left;
+            transition: all 0.2s; cursor: pointer; background: white; width: 100%;
+            font-weight: 500; color: #475569;
+        }
+        .quiz-opt:hover { border-color: #3b82f6; background-color: #eff6ff; color: #1e40af; }
     </style>
 </head>
 <body class="bg-stone-50 text-slate-800 font-sans antialiased selection:bg-blue-200 selection:text-blue-900 overflow-x-hidden">
@@ -127,7 +115,7 @@
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#services" class="nav-link text-slate-600 hover:text-blue-600 font-medium transition">Services</a>
                     <a href="#insights" class="nav-link text-slate-600 hover:text-blue-600 font-medium transition">Insights</a>
-                    <a href="https://app.gorelo.io/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-medium transition shadow-md">Client Login</a>
+                    <a href="https://login.gorelo.io/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-medium transition shadow-md">Client Login</a>
                 </div>
             </div>
         </div>
@@ -135,7 +123,7 @@
 
     <!-- Floating Action Button (Always Present Dialer) -->
     <a href="tel:+13153947008" class="fab fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl pulse-active group" aria-label="Call C4 Computer Consulting">
-        &#9742; <!-- Unicode Phone Icon -->
+        &#9742;
         <span class="absolute right-20 bg-slate-800 text-white text-sm py-1.5 px-3 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
             Call Support Now
         </span>
@@ -156,8 +144,6 @@
 
             <!-- The Game Area -->
             <div class="interactive-bg relative w-full max-w-4xl mx-auto h-[350px] md:h-[450px] rounded-2xl border-2 border-slate-300 shadow-inner overflow-hidden flex justify-between items-center p-4 md:p-16">
-                
-                <!-- Canvas for drawing the cable dynamically -->
                 <canvas id="cableCanvas" class="absolute inset-0 z-0 pointer-events-none w-full h-full"></canvas>
 
                 <!-- Left: Server Infrastructure -->
@@ -169,7 +155,6 @@
                         <div class="css-server-blade"><div class="css-light-green light-blink-fast"></div></div>
                         <div class="css-server-blade"><div class="css-light-red" id="server-status-2"></div></div>
                     </div>
-                    <!-- Interactive Port A -->
                     <div id="portA" class="port pulse-active mt-4" tabindex="0" role="button" aria-label="Connect Server">
                         <div class="w-2 h-2 bg-white rounded-full"></div>
                     </div>
@@ -189,7 +174,6 @@
                         >_ err: no_net
                         <div class="css-monitor-base"></div>
                     </div>
-                    <!-- Interactive Port B -->
                     <div id="portB" class="port opacity-50 cursor-not-allowed mt-4" tabindex="0" role="button" aria-label="Connect Workstation">
                         <div class="w-2 h-2 bg-white rounded-full"></div>
                     </div>
@@ -198,17 +182,17 @@
         </div>
     </header>
 
-    <!-- Stage 2: The Main Application (Hidden until connected) -->
+    <!-- Stage 2: The Main Application -->
     <main id="main-content" class="hidden opacity-0 transition-opacity duration-1000 bg-white">
         
-        <!-- Welcome Success Banner -->
+        <!-- Welcome Banner -->
         <div class="bg-emerald-600 text-white py-4 shadow-md">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center font-medium flex items-center justify-center gap-3">
                 <span class="text-2xl">&#10003;</span> Connection Established. Core services unlocked. Welcome to optimized IT.
             </div>
         </div>
 
-        <!-- System Overview / Introduction Section -->
+        <!-- Services Section -->
         <section class="py-20 bg-stone-50 border-b border-stone-200" id="services">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16 reveal-section">
@@ -221,100 +205,47 @@
                     </p>
                 </div>
 
-                <!-- Services Grid (Structured HTML/CSS layout) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <!-- Service 1 -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 hover:shadow-lg transition-shadow duration-300 reveal-section">
-                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-2xl mb-6">
-                            &#9881; <!-- Gear -->
-                        </div>
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-2xl mb-6">&#9881;</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Managed IT Services</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                            Proactive monitoring and maintenance of your entire infrastructure. We resolve issues before they cause downtime.
-                        </p>
-                        <ul class="text-sm text-slate-500 space-y-2">
-                            <li>&bull; 24/7 System Monitoring</li>
-                            <li>&bull; Patch Management</li>
-                            <li>&bull; Asset Lifecycle Tracking</li>
-                        </ul>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Proactive monitoring and maintenance of your entire infrastructure. We resolve issues before they cause downtime.</p>
                     </div>
 
                     <!-- Service 2 -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 hover:shadow-lg transition-shadow duration-300 reveal-section" style="transition-delay: 100ms;">
-                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-2xl mb-6">
-                            &#128274; <!-- Lock -->
-                        </div>
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-2xl mb-6">&#128274;</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Cybersecurity</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                            Enterprise-grade defense against evolving threats. Protecting your data is our primary directive.
-                        </p>
-                        <ul class="text-sm text-slate-500 space-y-2">
-                            <li>&bull; Advanced Endpoint Protection</li>
-                            <li>&bull; Firewall & Network Security</li>
-                            <li>&bull; Employee Security Training</li>
-                        </ul>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Enterprise-grade defense against evolving threats. Protecting your data is our primary directive.</p>
                     </div>
 
                     <!-- Service 3 -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 hover:shadow-lg transition-shadow duration-300 reveal-section" style="transition-delay: 200ms;">
-                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-2xl mb-6">
-                            &#9728; <!-- Cloud -->
-                        </div>
+                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-2xl mb-6">&#9728;</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Cloud Solutions</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                            Scalable, secure cloud environments that enable remote work and robust disaster recovery capabilities.
-                        </p>
-                        <ul class="text-sm text-slate-500 space-y-2">
-                            <li>&bull; Cloud Migrations (Azure/AWS)</li>
-                            <li>&bull; Microsoft 365 Management</li>
-                            <li>&bull; Automated Cloud Backups</li>
-                        </ul>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Scalable, secure cloud environments that enable remote work and robust disaster recovery capabilities.</p>
                     </div>
 
                     <!-- Service 4 -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 hover:shadow-lg transition-shadow duration-300 reveal-section" style="transition-delay: 300ms;">
-                        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-2xl mb-6">
-                            &#128187; <!-- PC -->
-                        </div>
+                        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-2xl mb-6">&#128187;</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Helpdesk Support</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
-                            Responsive, local experts ready to assist your team. Stop waiting on hold and get back to business.
-                        </p>
-                        <ul class="text-sm text-slate-500 space-y-2">
-                            <li>&bull; Remote & On-site Support</li>
-                            <li>&bull; Dedicated Account Managers</li>
-                            <li>&bull; Rapid Response SLAs</li>
-                        </ul>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Responsive, local experts ready to assist your team. Stop waiting on hold and get back to business.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Data Insights Section (Interactive Charts) -->
+        <!-- Insights Section -->
         <section class="py-20 bg-white" id="insights">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    
                     <div class="reveal-section">
                         <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Data Analytics</h2>
-                        <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 sm:text-4xl mb-6">
-                            The Cost of Disconnect
-                        </h3>
-                        <p class="text-lg text-slate-600 mb-6">
-                            Running a business with unmanaged IT isn't just frustrating; it's a financial liability. Our data analytics highlight the stark contrast in operational efficiency and hidden costs.
-                        </p>
-                        <div class="space-y-4">
-                            <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
-                                <h4 class="font-bold text-slate-800">Unmanaged IT (Break-Fix)</h4>
-                                <p class="text-sm text-slate-600">High hidden costs due to unpredictable downtime, lost productivity, and emergency repair rates.</p>
-                            </div>
-                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                                <h4 class="font-bold text-blue-900">C4 Managed IT</h4>
-                                <p class="text-sm text-blue-800">Predictable monthly expenditures, maximized uptime, and strategic technology planning.</p>
-                            </div>
-                        </div>
+                        <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 sm:text-4xl mb-6">The Cost of Disconnect</h3>
+                        <p class="text-lg text-slate-600 mb-6">Running a business with unmanaged IT isn't just frustrating; it's a financial liability.</p>
                         
-                        <!-- Interactive Toggle for Chart -->
                         <div class="mt-8">
                             <label class="font-semibold text-slate-700 block mb-2">Select Perspective:</label>
                             <div class="flex space-x-2 bg-slate-100 p-1 rounded-lg inline-flex">
@@ -324,60 +255,145 @@
                         </div>
                     </div>
 
-                    <!-- CHART CONTAINER (Strictly constrained) -->
                     <div class="w-full bg-white p-6 rounded-2xl shadow-xl border border-slate-100 reveal-section" style="transition-delay: 200ms;">
                         <div class="chart-container">
                             <canvas id="insightChart"></canvas>
                         </div>
-                        <p class="text-xs text-center text-slate-400 mt-4 italic">*Data based on average SMB 5-year IT expenditure studies.</p>
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <!-- CTA / Network Architecture Visualization -->
+        <!-- NEW CTA SECTION: Interactive Diagnostics -->
         <section class="py-24 bg-slate-900 text-white relative overflow-hidden">
-            <!-- Background Decoration -->
             <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
             
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 reveal-section">
-                <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl mb-6">Ready to fortify your network?</h2>
+                <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl mb-6">Uncover Hidden Vulnerabilities</h2>
                 <p class="text-xl text-slate-300 mb-10">
-                    Your infrastructure is currently running, but is it optimized? Schedule a comprehensive network audit with our senior engineers today.
+                    Take our 60-second interactive diagnostic to calculate your network's health score. Identify weaknesses before they become expensive downtime.
                 </p>
-                <form action="mailto:support@c4computerconsulting.com" method="POST" enctype="text/plain" class="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
-                    <input type="email" name="Email" required placeholder="Enter your business email" class="px-6 py-4 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent flex-grow">
-                    <button type="submit" class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-colors whitespace-nowrap shadow-lg shadow-blue-600/30">
-                        Initiate Diagnostics
-                    </button>
-                </form>
+                <button id="open-diagnostic-btn" class="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white text-xl font-bold rounded-lg transition-transform transform hover:scale-105 whitespace-nowrap shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                    Initiate Free Diagnostics
+                </button>
             </div>
         </section>
 
-       <footer class="bg-slate-950 py-12 border-t border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div class="text-2xl font-black tracking-tighter text-blue-600 mb-4">C4</div>
-        <p class="text-slate-500 text-sm leading-relaxed">
-            &copy; 2026 C4 Computer Consulting. All network rights reserved.<br>
-            
-            <!-- Clickable Address -->
-            <a href="https://www.google.com/maps/search/?api=1&query=7611+NY-68,+Ogdensburg,+NY+13669" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 transition-colors inline-flex items-center gap-1" aria-label="Open address in Maps">
-                &#128205; 7611 NY-68, Ogdensburg, NY 13669
-            </a> 
-            
-            | IT Support: 
-            
-            <!-- Clickable Phone -->
-            <a href="tel:+13153947008" class="hover:text-blue-500 transition-colors">
-                (315) 394-7008
-            </a><br>
-            
-            Email: <a href="mailto:support@c4computerconsulting.com" class="text-blue-500 hover:text-blue-400 transition-colors">support@c4computerconsulting.com</a>
-        </p>
-    </div>
-</footer>
+        <!-- Interactive Diagnostic Modal (Hidden by default) -->
+        <div id="diagnostic-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden transform scale-95 transition-transform duration-300" id="diagnostic-content">
+                
+                <!-- Modal Header -->
+                <div class="bg-slate-900 p-5 flex justify-between items-center text-white border-b border-blue-600/30">
+                    <h3 class="font-bold flex items-center gap-3">
+                        <span class="w-3 h-3 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span> 
+                        C4 Network Scanner
+                    </h3>
+                    <button id="close-modal-btn" class="text-slate-400 hover:text-white text-2xl font-bold">&times;</button>
+                </div>
 
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-100 h-2">
+                    <div id="quiz-progress" class="bg-blue-600 h-2 transition-all duration-500 w-1/4"></div>
+                </div>
+
+                <!-- Modal Body / Quiz Container -->
+                <div class="p-6 md:p-8 relative" id="quiz-container">
+                    
+                    <!-- Step 1 -->
+                    <div id="step-1" class="quiz-step block">
+                        <p class="text-sm font-bold text-blue-600 mb-2 uppercase tracking-wide">Question 1 of 3</p>
+                        <h4 class="text-xl font-extrabold text-slate-900 mb-6">How many workstations (PCs/Macs) do you currently manage?</h4>
+                        <div class="space-y-3">
+                            <button class="quiz-opt" data-points="10">1 to 10 Workstations</button>
+                            <button class="quiz-opt" data-points="30">11 to 50 Workstations</button>
+                            <button class="quiz-opt" data-points="50">50+ Workstations</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div id="step-2" class="quiz-step hidden">
+                        <p class="text-sm font-bold text-blue-600 mb-2 uppercase tracking-wide">Question 2 of 3</p>
+                        <h4 class="text-xl font-extrabold text-slate-900 mb-6">Are your systems backed up to a secure, offsite cloud environment automatically?</h4>
+                        <div class="space-y-3">
+                            <button class="quiz-opt" data-points="0">Yes, daily automated backups.</button>
+                            <button class="quiz-opt" data-points="60">No, we use local drives / manual backups.</button>
+                            <button class="quiz-opt" data-points="70">I'm not completely sure.</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div id="step-3" class="quiz-step hidden">
+                        <p class="text-sm font-bold text-blue-600 mb-2 uppercase tracking-wide">Question 3 of 3</p>
+                        <h4 class="text-xl font-extrabold text-slate-900 mb-6">When was your last professional IT security or firewall audit?</h4>
+                        <div class="space-y-3">
+                            <button class="quiz-opt" data-points="0">Within the last 6 months.</button>
+                            <button class="quiz-opt" data-points="40">Over a year ago.</button>
+                            <button class="quiz-opt" data-points="80">Never / I don't know.</button>
+                        </div>
+                    </div>
+
+                    <!-- Analyzing State -->
+                    <div id="step-analyzing" class="quiz-step hidden text-center py-10 relative overflow-hidden rounded-lg bg-slate-50 border border-slate-200">
+                        <div class="scanner-bar"></div>
+                        <div class="text-4xl mb-4">&#9881;</div>
+                        <h4 class="text-xl font-extrabold text-slate-900 mb-2">Analyzing Infrastructure...</h4>
+                        <p class="text-slate-500 text-sm">Compiling vulnerability report based on your parameters.</p>
+                    </div>
+
+                    <!-- Final Result & Form -->
+                    <div id="step-result" class="quiz-step hidden">
+                        <div class="text-center mb-6">
+                            <p class="text-sm font-bold text-slate-500 uppercase">Estimated Vulnerability</p>
+                            <div id="risk-score-display" class="text-4xl font-black my-2">--</div>
+                            <p id="risk-message" class="text-sm text-slate-600 font-medium"></p>
+                        </div>
+                        
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6">
+                            <p class="text-sm text-slate-700 mb-4"><strong>Recommendation:</strong> A senior engineer should review your network. Enter your details below to receive your detailed report and a free consultation.</p>
+                            
+                            <form id="lead-form" class="space-y-4">
+                                <div>
+                                    <input type="text" id="lead-name" required placeholder="Full Name" class="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-800">
+                                </div>
+                                <div>
+                                    <input type="tel" id="lead-phone" required placeholder="Phone Number" class="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-800">
+                                </div>
+                                <div>
+                                    <input type="email" id="lead-email" required placeholder="Business Email" class="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-800">
+                                </div>
+                                <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-md transition-colors shadow-md">
+                                    Claim Free Consultation
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Success Message -->
+                    <div id="step-success" class="quiz-step hidden text-center py-8">
+                        <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">&#10003;</div>
+                        <h4 class="text-2xl font-extrabold text-slate-900 mb-2">Transmission Successful</h4>
+                        <p class="text-slate-600">Your network data has been securely logged. A C4 engineer will call you shortly at the number provided.</p>
+                        <button id="close-success-btn" class="mt-8 px-6 py-2 border border-slate-300 rounded-md text-slate-600 hover:bg-slate-50 transition-colors font-medium">Return to Site</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <footer class="bg-slate-950 py-12 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="text-2xl font-black tracking-tighter text-blue-600 mb-4">C4</div>
+                <p class="text-slate-500 text-sm leading-relaxed">
+                    &copy; 2026 C4 Computer Consulting. All network rights reserved.<br>
+                    <a href="https://www.google.com/maps/search/?api=1&query=7611+NY-68,+Ogdensburg,+NY+13669" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 transition-colors inline-flex items-center gap-1">
+                        &#128205; 7611 NY-68, Ogdensburg, NY 13669
+                    </a> | IT Support: 
+                    <a href="tel:+13153947008" class="hover:text-blue-500 transition-colors">(315) 394-7008</a><br>
+                    Email: <a href="mailto:support@c4computerconsulting.com" class="text-blue-500 hover:text-blue-400 transition-colors">support@c4computerconsulting.com</a>
+                </p>
+            </div>
+        </footer>
     </main>
 
     <!-- Interactive Logic & App State Management -->
@@ -386,12 +402,14 @@
             
             // --- STATE MANAGEMENT ---
             const state = {
-                connectionStep: 0, // 0: Start, 1: Server Clicked, 2: PC Clicked (Connected)
+                connectionStep: 0,
                 chartView: 'cost',
-                chartInstance: null
+                chartInstance: null,
+                quizScore: 0,
+                quizStep: 1
             };
 
-            // --- DOM ELEMENTS ---
+            // --- HERO GAME LOGIC ---
             const canvas = document.getElementById('cableCanvas');
             const ctx = canvas.getContext('2d');
             const portA = document.getElementById('portA');
@@ -405,376 +423,245 @@
             const serverStatus2 = document.getElementById('server-status-2');
             const gameArea = canvas.parentElement;
 
-            // --- CANVAS RESIZE & POSITIONING LOGIC ---
             function resizeCanvas() {
-                // Make canvas dimensions match the container to avoid scaling issues
                 canvas.width = gameArea.clientWidth;
                 canvas.height = gameArea.clientHeight;
-                drawState(); // Redraw based on current state
+                drawState();
             }
             window.addEventListener('resize', resizeCanvas);
 
-            // Get coordinates of an element relative to the canvas
             function getCenterCoords(element) {
                 const rect = element.getBoundingClientRect();
                 const containerRect = gameArea.getBoundingClientRect();
-                return {
-                    x: (rect.left - containerRect.left) + (rect.width / 2),
-                    y: (rect.top - containerRect.top) + (rect.height / 2)
-                };
+                return { x: (rect.left - containerRect.left) + (rect.width / 2), y: (rect.top - containerRect.top) + (rect.height / 2) };
             }
 
-            // --- DRAWING LOGIC (NO SVG, Pure Canvas) ---
             let mousePos = { x: 0, y: 0 };
+            let dashOffset = 0;
             
             function drawCable(x1, y1, x2, y2, isConnected) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
                 ctx.beginPath();
                 ctx.moveTo(x1, y1);
-                
-                // Create a nice sagging cable curve
                 const controlX1 = x1 + (x2 - x1) * 0.5;
-                const controlY1 = y1 + 100; // Sag down
+                const controlY1 = y1 + 100;
                 const controlX2 = x2 - (x2 - x1) * 0.5;
-                const controlY2 = y2 + 100; // Sag down
-                
+                const controlY2 = y2 + 100;
                 ctx.bezierCurveTo(controlX1, controlY1, controlX2, controlY2, x2, y2);
-                
                 ctx.lineWidth = 6;
                 ctx.lineCap = 'round';
                 
                 if (isConnected) {
-                    // Success state styling
-                    ctx.strokeStyle = '#10b981'; // Emerald
-                    ctx.shadowColor = '#059669';
-                    ctx.shadowBlur = 15;
-                    ctx.stroke();
-                    
-                    // Draw animated data packets flowing over the curve
-                    drawDataPackets(x1, y1, controlX1, controlY1, controlX2, controlY2, x2, y2);
+                    ctx.strokeStyle = '#10b981'; ctx.shadowColor = '#059669'; ctx.shadowBlur = 15; ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.bezierCurveTo(controlX1, controlY1, controlX2, controlY2, x2, y2);
+                    ctx.lineWidth = 2; ctx.strokeStyle = '#ffffff'; ctx.setLineDash([10, 20]); ctx.lineDashOffset = -dashOffset; ctx.stroke(); ctx.setLineDash([]);
                 } else {
-                    // Dragging state styling
-                    ctx.strokeStyle = '#3b82f6'; // Blue
-                    ctx.shadowBlur = 0;
-                    ctx.stroke();
+                    ctx.strokeStyle = '#3b82f6'; ctx.shadowBlur = 0; ctx.stroke();
                 }
             }
 
-            // Animation variables for data flow
-            let dashOffset = 0;
-            function drawDataPackets(x1, y1, cx1, cy1, cx2, cy2, x2, y2) {
-                ctx.beginPath();
-                ctx.moveTo(x1, y1);
-                ctx.bezierCurveTo(cx1, cy1, cx2, cy2, x2, y2);
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = '#ffffff';
-                ctx.setLineDash([10, 20]);
-                ctx.lineDashOffset = -dashOffset;
-                ctx.stroke();
-                ctx.setLineDash([]); // Reset
-            }
-
-            // Main render loop
             function drawState() {
-                if (state.connectionStep === 0) {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                } else if (state.connectionStep === 1) {
-                    const pA = getCenterCoords(portA);
-                    drawCable(pA.x, pA.y, mousePos.x, mousePos.y, false);
-                } else if (state.connectionStep === 2) {
-                    const pA = getCenterCoords(portA);
-                    const pB = getCenterCoords(portB);
-                    drawCable(pA.x, pA.y, pB.x, pB.y, true);
-                }
+                if (state.connectionStep === 0) ctx.clearRect(0, 0, canvas.width, canvas.height);
+                else if (state.connectionStep === 1) drawCable(getCenterCoords(portA).x, getCenterCoords(portA).y, mousePos.x, mousePos.y, false);
+                else if (state.connectionStep === 2) drawCable(getCenterCoords(portA).x, getCenterCoords(portA).y, getCenterCoords(portB).x, getCenterCoords(portB).y, true);
             }
 
-            // Animation Loop
             function animate() {
-                if (state.connectionStep === 1 || state.connectionStep === 2) {
-                    dashOffset += 2; // Speed of data flow
-                    drawState();
-                }
+                if (state.connectionStep === 1 || state.connectionStep === 2) { dashOffset += 2; drawState(); }
                 requestAnimationFrame(animate);
             }
 
-            // --- INTERACTION HANDLING ---
-            
-            // Track mouse for drawing active cable
             gameArea.addEventListener('mousemove', (e) => {
                 if (state.connectionStep === 1) {
                     const rect = gameArea.getBoundingClientRect();
-                    mousePos.x = e.clientX - rect.left;
-                    mousePos.y = e.clientY - rect.top;
+                    mousePos.x = e.clientX - rect.left; mousePos.y = e.clientY - rect.top;
                 }
             });
 
-            // Port A (Server) Click
             portA.addEventListener('click', () => {
                 if (state.connectionStep === 0) {
                     state.connectionStep = 1;
-                    
-                    // Update UI State
-                    portA.classList.remove('pulse-active');
-                    portA.classList.add('bg-blue-600');
-                    portB.classList.remove('opacity-50', 'cursor-not-allowed');
-                    portB.classList.add('pulse-active');
-                    
+                    portA.classList.remove('pulse-active'); portA.classList.add('bg-blue-600');
+                    portB.classList.remove('opacity-50', 'cursor-not-allowed'); portB.classList.add('pulse-active');
                     instructionText.innerHTML = "Connection initiated. Now <strong>tap the Workstation port</strong> to complete the circuit.";
-                    connectionBadge.innerText = "ROUTING...";
-                    connectionBadge.classList.replace('bg-slate-800', 'bg-blue-900');
-                    connectionBadge.classList.replace('text-slate-300', 'text-blue-200');
-                    
-                    // Set initial mouse pos to Port A center so line doesn't flash from 0,0
+                    connectionBadge.innerText = "ROUTING..."; connectionBadge.classList.replace('bg-slate-800', 'bg-blue-900'); connectionBadge.classList.replace('text-slate-300', 'text-blue-200');
                     mousePos = getCenterCoords(portA);
                 }
             });
 
-            // Port B (PC) Click
             portB.addEventListener('click', () => {
-                if (state.connectionStep === 1) {
-                    unlockApplication('services', false);
-                }
+                if (state.connectionStep === 1) unlockApplication('services', false);
             });
 
-            // The "Aha" moment function & Bypass Logic
             function unlockApplication(targetId = 'services', isBypass = false) {
-                if (state.connectionStep === 2) return; // Prevent double trigger
+                if (state.connectionStep === 2) return;
                 state.connectionStep = 2;
                 
-                // Ensure UI reflects connected state (even if skipped)
-                portA.classList.remove('pulse-active', 'bg-blue-600');
-                portA.classList.add('connected');
-                portB.classList.remove('pulse-active', 'opacity-50', 'cursor-not-allowed');
-                portB.classList.add('connected');
-                
-                statusText.innerText = "Connected";
-                statusText.classList.replace('text-red-500', 'text-emerald-500');
-                
+                portA.classList.remove('pulse-active', 'bg-blue-600'); portA.classList.add('connected');
+                portB.classList.remove('pulse-active', 'opacity-50', 'cursor-not-allowed'); portB.classList.add('connected');
+                statusText.innerText = "Connected"; statusText.classList.replace('text-red-500', 'text-emerald-500');
                 instructionText.innerHTML = "System online. Diagnostic complete. Data flowing securely.";
-                document.getElementById('skip-btn').classList.add('hidden'); // Hide skip button
-                
-                connectionBadge.innerText = "ONLINE";
-                connectionBadge.classList.remove('bg-slate-800', 'bg-blue-900');
-                connectionBadge.classList.add('bg-emerald-900');
-                connectionBadge.classList.remove('text-slate-300', 'text-blue-200');
-                connectionBadge.classList.add('text-emerald-300');
-                connectionBadge.classList.add('shadow-[0_0_15px_rgba(16,185,129,0.5)]');
+                document.getElementById('skip-btn').classList.add('hidden');
+                connectionBadge.innerText = "ONLINE"; connectionBadge.className = "bg-emerald-900 text-emerald-300 px-4 py-2 rounded-full text-sm font-mono tracking-widest border border-slate-700 transition-all duration-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]";
+                serverStatus1.classList.replace('css-light-red', 'css-light-green'); serverStatus2.classList.replace('css-light-red', 'css-light-green');
+                pcScreen.innerHTML = ">_ sys.ready()<br>>_ sync_c4"; pcScreen.style.color = "#3b82f6";
 
-                // Hardware UI Updates
-                serverStatus1.classList.replace('css-light-red', 'css-light-green');
-                serverStatus2.classList.replace('css-light-red', 'css-light-green');
-                pcScreen.innerHTML = ">_ sys.ready()<br>>_ sync_c4";
-                pcScreen.style.color = "#3b82f6";
+                mainContent.classList.remove('hidden'); void mainContent.offsetWidth; mainContent.classList.replace('opacity-0', 'opacity-100');
 
-                // Reveal Main Content
-                mainContent.classList.remove('hidden');
-                // Trigger reflow
-                void mainContent.offsetWidth;
-                mainContent.classList.replace('opacity-0', 'opacity-100');
-
-                // Scroll to target (instant if bypassed, delayed if played naturally)
                 setTimeout(() => {
                     const targetEl = document.getElementById(targetId);
-                    if(targetEl) {
-                        // Subtract 80px to account for the sticky navbar height
-                        const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
-                        window.scrollTo({top: y, behavior: 'smooth'});
-                    }
-                    initChart(); // Init chart only when visible
-                    initScrollReveal(); // Start observing scroll
+                    if(targetEl) window.scrollTo({top: targetEl.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth'});
+                    initChart(); initScrollReveal();
                 }, isBypass ? 100 : 1200);
             }
 
-            // Bypass Button Listener
             document.getElementById('skip-btn').addEventListener('click', () => unlockApplication('services', true));
 
-            // Navigation Links Listener (Intercept clicks to bypass)
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
-                    e.preventDefault(); // Stop standard jump
-                    const targetId = link.getAttribute('href').substring(1); // Get "services" or "insights"
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    if (state.connectionStep !== 2) unlockApplication(targetId, true);
+                    else document.getElementById(targetId)?.scrollIntoView({behavior: 'smooth'});
+                });
+            });
+
+            // --- QUIZ & MODAL LOGIC ---
+            const modal = document.getElementById('diagnostic-modal');
+            const modalContent = document.getElementById('diagnostic-content');
+            const progressBar = document.getElementById('quiz-progress');
+            
+            function openModal() {
+                modal.classList.remove('hidden');
+                setTimeout(() => { modal.classList.replace('opacity-0', 'opacity-100'); modalContent.classList.replace('scale-95', 'scale-100'); }, 10);
+            }
+
+            function closeModal() {
+                modal.classList.replace('opacity-100', 'opacity-0'); modalContent.classList.replace('scale-100', 'scale-95');
+                setTimeout(() => { modal.classList.add('hidden'); resetQuiz(); }, 300);
+            }
+
+            document.getElementById('open-diagnostic-btn').addEventListener('click', openModal);
+            document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+            document.getElementById('close-success-btn').addEventListener('click', closeModal);
+
+            // Handle Quiz Choices
+            document.querySelectorAll('.quiz-opt').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const points = parseInt(this.getAttribute('data-points'));
+                    state.quizScore += points;
                     
-                    if (state.connectionStep !== 2) {
-                        // Game not finished -> Unlock and jump
-                        unlockApplication(targetId, true);
+                    document.getElementById(`step-${state.quizStep}`).classList.add('hidden');
+                    state.quizStep++;
+                    
+                    if(state.quizStep <= 3) {
+                        document.getElementById(`step-${state.quizStep}`).classList.remove('hidden');
+                        progressBar.style.width = `${(state.quizStep / 4) * 100}%`;
                     } else {
-                        // Game already finished -> Normal smooth scroll jump
-                        const targetEl = document.getElementById(targetId);
-                        if(targetEl) {
-                            const y = targetEl.getBoundingClientRect().top + window.scrollY - 80;
-                            window.scrollTo({top: y, behavior: 'smooth'});
-                        }
+                        showAnalyzing();
                     }
                 });
             });
+
+            function showAnalyzing() {
+                progressBar.style.width = '100%';
+                document.getElementById('step-analyzing').classList.remove('hidden');
+                
+                setTimeout(() => {
+                    document.getElementById('step-analyzing').classList.add('hidden');
+                    showResults();
+                }, 2000); // 2 second fake scan
+            }
+
+            function showResults() {
+                document.getElementById('step-result').classList.remove('hidden');
+                const display = document.getElementById('risk-score-display');
+                const message = document.getElementById('risk-message');
+                
+                // Max possible score is 200 (50+70+80). Let's convert to a simpler "Risk Level"
+                if(state.quizScore > 100) {
+                    display.innerText = "HIGH RISK"; display.className = "text-4xl font-black my-2 text-red-600";
+                    message.innerText = "Critical vulnerabilities detected based on your backup and audit history.";
+                } else if(state.quizScore > 40) {
+                    display.innerText = "ELEVATED RISK"; display.className = "text-4xl font-black my-2 text-amber-500";
+                    message.innerText = "Your infrastructure has gaps that could lead to data loss or breaches.";
+                } else {
+                    display.innerText = "MODERATE RISK"; display.className = "text-4xl font-black my-2 text-blue-600";
+                    message.innerText = "While generally secure, an expert audit can find hidden inefficiencies.";
+                }
+            }
+
+            // Handle Form Submission
+            document.getElementById('lead-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                // In a real scenario, you would send data to a webhook/email server here.
+                document.getElementById('step-result').classList.add('hidden');
+                document.getElementById('step-success').classList.remove('hidden');
+            });
+
+            function resetQuiz() {
+                document.querySelectorAll('.quiz-step').forEach(el => el.classList.add('hidden'));
+                document.getElementById('step-1').classList.remove('hidden');
+                state.quizScore = 0; state.quizStep = 1;
+                progressBar.style.width = '25%';
+                document.getElementById('lead-form').reset();
+            }
 
             // --- DATA VISUALIZATION (Chart.js) ---
             const chartData = {
                 cost: {
                     labels: ['Hardware Break/Fix', 'Downtime Losses', 'Security Breaches', 'Proactive Maintenance', 'Total Annual Estimate'],
                     datasets: [
-                        {
-                            label: 'Unmanaged IT',
-                            data: [15000, 35000, 20000, 0, 70000],
-                            backgroundColor: 'rgba(239, 68, 68, 0.7)', // Red
-                            borderColor: 'rgb(239, 68, 68)',
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'C4 Managed Services',
-                            data: [5000, 2000, 0, 24000, 31000],
-                            backgroundColor: 'rgba(59, 130, 246, 0.7)', // Blue
-                            borderColor: 'rgb(59, 130, 246)',
-                            borderWidth: 1
-                        }
+                        { label: 'Unmanaged IT', data: [15000, 35000, 20000, 0, 70000], backgroundColor: 'rgba(239, 68, 68, 0.7)', borderColor: 'rgb(239, 68, 68)', borderWidth: 1 },
+                        { label: 'C4 Managed Services', data: [5000, 2000, 0, 24000, 31000], backgroundColor: 'rgba(59, 130, 246, 0.7)', borderColor: 'rgb(59, 130, 246)', borderWidth: 1 }
                     ]
                 },
                 uptime: {
                     labels: ['Q1', 'Q2', 'Q3', 'Q4'],
                     datasets: [
-                        {
-                            label: 'Unmanaged IT %',
-                            data: [92.5, 88.0, 94.1, 89.5],
-                            borderColor: 'rgb(239, 68, 68)',
-                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                            fill: true,
-                            tension: 0.4
-                        },
-                        {
-                            label: 'C4 Managed Services %',
-                            data: [99.9, 99.9, 99.8, 99.9],
-                            borderColor: 'rgb(16, 185, 129)',
-                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                            fill: true,
-                            tension: 0.4
-                        }
+                        { label: 'Unmanaged IT %', data: [92.5, 88.0, 94.1, 89.5], borderColor: 'rgb(239, 68, 68)', backgroundColor: 'rgba(239, 68, 68, 0.1)', fill: true, tension: 0.4 },
+                        { label: 'C4 Managed Services %', data: [99.9, 99.9, 99.8, 99.9], borderColor: 'rgb(16, 185, 129)', backgroundColor: 'rgba(16, 185, 129, 0.1)', fill: true, tension: 0.4 }
                     ]
                 }
             };
 
             function initChart() {
-                if (state.chartInstance) return; // Prevent double init
-                
+                if (state.chartInstance) return;
                 const ctxChart = document.getElementById('insightChart').getContext('2d');
-                
-                Chart.defaults.font.family = "'Inter', 'sans-serif'";
-                Chart.defaults.color = '#64748b';
-
+                Chart.defaults.font.family = "'Inter', 'sans-serif'"; Chart.defaults.color = '#64748b';
                 state.chartInstance = new Chart(ctxChart, {
-                    type: 'bar',
-                    data: chartData.cost,
+                    type: 'bar', data: chartData.cost,
                     options: {
-                        responsive: true,
-                        maintainAspectRatio: false, // Critical for CSS container control
-                        plugins: {
-                            legend: { position: 'top' },
-                            tooltip: {
-                                mode: 'index',
-                                intersect: false,
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) { label += ': '; }
-                                        if (context.parsed.y !== null) {
-                                            label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(context.parsed.y);
-                                        }
-                                        return label;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                grid: { color: '#f1f5f9' },
-                                ticks: {
-                                    callback: function(value) {
-                                        return '$' + (value/1000) + 'k';
-                                    }
-                                }
-                            },
-                            x: {
-                                grid: { display: false },
-                                ticks: {
-                                    // Label wrapping logic (16 chars approx)
-                                    callback: function(val, index) {
-                                        let label = this.getLabelForValue(val);
-                                        if (/\s/.test(label) && label.length > 15) {
-                                            return label.split(' ');
-                                        }
-                                        return label;
-                                    }
-                                }
-                            }
-                        }
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { tooltip: { callbacks: { label: function(c) { return c.dataset.label + ': $' + (c.parsed.y/1000) + 'k'; } } } },
+                        scales: { y: { ticks: { callback: function(v) { return '$' + (v/1000) + 'k'; } } }, x: { ticks: { callback: function(v) { let l = this.getLabelForValue(v); return l.length > 15 ? l.split(' ') : l; } } } }
                     }
                 });
-            }
-
-            function updateChart(view) {
-                if (!state.chartInstance) return;
-                
-                const isCost = view === 'cost';
-                const data = isCost ? chartData.cost : chartData.uptime;
-                
-                state.chartInstance.config.type = isCost ? 'bar' : 'line';
-                state.chartInstance.data = data;
-                
-                // Update Tooltip format based on view
-                state.chartInstance.options.plugins.tooltip.callbacks.label = function(context) {
-                    let label = context.dataset.label || '';
-                    if (label) label += ': ';
-                    if (isCost) {
-                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(context.parsed.y);
-                    } else {
-                        label += context.parsed.y + '%';
-                    }
-                    return label;
-                };
-
-                // Update Y-axis format
-                state.chartInstance.options.scales.y.ticks.callback = function(value) {
-                    return isCost ? '$' + (value/1000) + 'k' : value + '%';
-                };
-                
-                state.chartInstance.update();
-                
-                // Button Styling
-                const btnCost = document.getElementById('btn-cost');
-                const btnUptime = document.getElementById('btn-uptime');
-                
-                if (isCost) {
-                    btnCost.className = "px-4 py-2 bg-white shadow rounded-md text-sm font-bold text-blue-600 transition-all";
-                    btnUptime.className = "px-4 py-2 text-slate-500 hover:text-slate-800 rounded-md text-sm font-bold transition-all";
-                } else {
-                    btnUptime.className = "px-4 py-2 bg-white shadow rounded-md text-sm font-bold text-blue-600 transition-all";
-                    btnCost.className = "px-4 py-2 text-slate-500 hover:text-slate-800 rounded-md text-sm font-bold transition-all";
-                }
             }
 
             document.getElementById('btn-cost').addEventListener('click', () => updateChart('cost'));
             document.getElementById('btn-uptime').addEventListener('click', () => updateChart('uptime'));
 
-            // --- SCROLL REVEAL ANIMATIONS ---
-            function initScrollReveal() {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                document.querySelectorAll('.reveal-section').forEach(el => {
-                    observer.observe(el);
-                });
+            function updateChart(view) {
+                if (!state.chartInstance) return;
+                const isCost = view === 'cost';
+                state.chartInstance.config.type = isCost ? 'bar' : 'line';
+                state.chartInstance.data = isCost ? chartData.cost : chartData.uptime;
+                state.chartInstance.options.plugins.tooltip.callbacks.label = function(c) { return c.dataset.label + ': ' + (isCost ? '$' + (c.parsed.y/1000) + 'k' : c.parsed.y + '%'); };
+                state.chartInstance.options.scales.y.ticks.callback = function(v) { return isCost ? '$' + (v/1000) + 'k' : v + '%'; };
+                state.chartInstance.update();
+                
+                document.getElementById('btn-cost').className = isCost ? "px-4 py-2 bg-white shadow rounded-md text-sm font-bold text-blue-600 transition-all" : "px-4 py-2 text-slate-500 hover:text-slate-800 rounded-md text-sm font-bold transition-all";
+                document.getElementById('btn-uptime').className = !isCost ? "px-4 py-2 bg-white shadow rounded-md text-sm font-bold text-blue-600 transition-all" : "px-4 py-2 text-slate-500 hover:text-slate-800 rounded-md text-sm font-bold transition-all";
             }
 
-            // --- INIT ---
-            resizeCanvas(); // Initial sizing
-            animate();      // Start animation loop
+            function initScrollReveal() {
+                const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0.1 });
+                document.querySelectorAll('.reveal-section').forEach(el => observer.observe(el));
+            }
+
+            // INIT
+            resizeCanvas(); animate();
         });
     </script>
 </body>
