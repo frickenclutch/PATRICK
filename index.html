@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>C4 Computer Consulting | Interactive IT Solutions</title>
+    <title>C4 Computer Consulting | Interactive IT Solutions</title>
     <meta name="description" content="Enterprise-grade Managed IT Services, Cybersecurity, Cloud Solutions, and Helpdesk Support in Ogdensburg, NY.">
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -19,10 +19,6 @@
     <meta property="og:url" content="https://www.c4computerconsulting.com">
     <meta property="og:image" content="https://www.c4computerconsulting.com/android-chrome-512x512.png">
     
-    <!-- Chosen Palette: Warm Neutrals & Tech Blue (Stone-50, Slate-800, Blue-600, Emerald-500) -->
-    <!-- Application Structure Plan: Gamified Hero -> Services -> Data -> Interactive Lead Gen -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -31,7 +27,7 @@
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "C4 Computer Consulting",
-      "url": "https://your-vercel-domain-here.vercel.app",
+      "url": "https://www.c4computerconsulting.com",
       "telephone": "+13153947008",
       "email": "support@c4tech.co",
       "description": "C4 Computer Consulting provides enterprise-grade Managed IT Services, Cybersecurity, Cloud Solutions, 3CX, Blockchain Security, and Helpdesk Support.",
@@ -58,9 +54,9 @@
         .light-blink-fast { animation: blink 0.5s infinite; }
         
         @keyframes pulse-ring {
-            0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); }
-            100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+            0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(249, 115, 22, 0); }
+            100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
         }
         .pulse-active { animation: pulse-ring 2s infinite; }
 
@@ -70,7 +66,7 @@
         }
         .scanner-bar {
             position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background-color: #3b82f6; box-shadow: 0 0 10px #3b82f6;
+            background-color: #f97316; box-shadow: 0 0 10px #f97316;
             animation: scanline 2s linear infinite;
         }
 
@@ -107,12 +103,12 @@
         }
 
         .port {
-            width: 24px; height: 24px; background-color: #0f172a; border: 2px solid #3b82f6; 
+            width: 24px; height: 24px; background-color: #0f172a; border: 2px solid #f97316; 
             border-radius: 50%; cursor: pointer; position: absolute; z-index: 10;
             transition: all 0.3s ease; display: flex; justify-content: center; align-items: center;
         }
-        .port:hover { background-color: #1e3a8a; transform: scale(1.1); }
-        .port.connected { background-color: #10b981; border-color: #059669; animation: none; }
+        .port:hover { background-color: #ea580c; transform: scale(1.1); }
+        .port.connected { background-color: #cbd5e1; border-color: #94a3b8; animation: none; }
         
         /* Interactive Environment BG */
         .interactive-bg {
@@ -138,8 +134,9 @@
             transition: all 0.2s; cursor: pointer; background: white; width: 100%;
             font-weight: 500; color: #475569;
         }
-        .quiz-opt:hover { border-color: #3b82f6; background-color: #eff6ff; color: #1e40af; }
-/* Tech Marquee Styles */
+        .quiz-opt:hover { border-color: #f97316; background-color: #fff7ed; color: #c2410c; }
+
+        /* Tech Marquee Styles */
         @keyframes scroll-left {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -161,15 +158,16 @@
             transition: all 0.3s;
         }
         .tech-badge:hover {
-            border-color: #3b82f6; color: #1e40af; background-color: #eff6ff; transform: scale(1.05);
+            border-color: #f97316; color: #c2410c; background-color: #fff7ed; transform: scale(1.05);
         }
+        
         /* Make badges neon in terminal mode */
         body.terminal-mode .tech-badge {
             background-color: transparent !important; border-color: #22c55e !important;
             color: #22c55e !important; box-shadow: 0 0 10px rgba(34, 197, 94, 0.2) !important;
         }
         
-/* --- TERMINAL EASTER EGG OVERRIDES --- */
+        /* --- TERMINAL EASTER EGG OVERRIDES --- */
         body.terminal-mode, body.terminal-mode main, body.terminal-mode section, body.terminal-mode nav, body.terminal-mode div {
             background-color: #050505 !important;
             border-color: #22c55e !important;
@@ -197,50 +195,46 @@
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
             background-size: 100% 4px; z-index: 9999; pointer-events: none; opacity: 0.4;
         }
-        
     </style>
 </head>
-<body class="bg-stone-50 text-slate-800 font-sans antialiased selection:bg-blue-200 selection:text-blue-900 overflow-x-hidden">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-orange-200 selection:text-orange-900 overflow-x-hidden">
 
-    <!-- Sticky igation -->
-   <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 flex flex-col shadow-sm" id="navbar">
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 flex flex-col shadow-sm" id="navbar">
         
-        <div class="bg-slate-900 text-slate-300 text-xs md:text-sm py-2 px-4 text-center font-medium flex justify-center items-center gap-2 tracking-wide w-full border-b border-slate-800">
+        <div class="bg-black text-slate-300 text-xs md:text-sm py-2 px-4 text-center font-medium flex justify-center items-center gap-2 tracking-wide w-full border-b border-zinc-900">
             <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
             <span class="hidden sm:inline">SYSTEM DOWN?</span> GET IMMEDIATE EMERGENCY IT SUPPORT: 
-            <a href="tel:+13153947008" class="text-white font-bold hover:text-red-400 transition-colors tracking-wider">
+            <a href="tel:+13153947008" class="text-white font-bold hover:text-orange-400 transition-colors tracking-wider">
                 (315) 394-7008
             </a>
         </div>
 
-        <div class="w-full bg-white/90 backdrop-blur-md border-b border-stone-200">
+        <div class="w-full bg-white/90 backdrop-blur-md border-b border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-32">
                     <div class="flex items-center gap-2">
-    <a href="#" id="main-logo" aria-label="Return to top" class="transition-transform hover:scale-105">
-        <img src="/android-chrome-512x512.png" alt="C4 Computer Consulting" class="h-16 md:h-20 w-auto">
-    </a>
-</div>
+                        <a href="#" id="main-logo" aria-label="Return to top" class="transition-transform hover:scale-105">
+                            <img src="/android-chrome-512x512.png" alt="C4 Computer Consulting" class="h-16 md:h-20 w-auto">
+                        </a>
+                    </div>
                     <div class="hidden md:flex space-x-8 items-center">
-                        <a href="#services" class="nav-link text-slate-600 hover:text-blue-600 font-medium transition">Services</a>
-                        <a href="#insights" class="nav-link text-slate-600 hover:text-blue-600 font-medium transition">Insights</a>
-                        <a href="https://portal.c4tech.io/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-medium transition shadow-md">Client Portal</a>
+                        <a href="#services" class="nav-link text-slate-600 hover:text-orange-500 font-medium transition">Services</a>
+                        <a href="#insights" class="nav-link text-slate-600 hover:text-orange-500 font-medium transition">Insights</a>
+                        <a href="https://portal.c4tech.io/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-black hover:bg-zinc-800 text-white rounded-lg font-medium transition shadow-md border border-zinc-800">Client Portal</a>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Floating Action Button (Always Present Dialer) -->
-    <a href="tel:+13153947008" class="fab fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl pulse-active group" aria-label="Call C4 Computer Consulting">
-        &#9742;
-        <span class="absolute right-20 bg-slate-800 text-white text-sm py-1.5 px-3 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+    <a href="tel:+13153947008" class="fab fixed bottom-6 right-6 z-50 bg-orange-500 hover:bg-orange-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl pulse-active group" aria-label="Call C4 Computer Consulting">
+        ☎
+        <span class="absolute right-20 bg-black text-white text-sm py-1.5 px-3 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
             Call Support Now
         </span>
     </a>
 
-    <!-- Stage 1: The Interactive Environment (Gamified Hero) -->
-    <header class="relative pt-40 pb-20 lg:pt-48 lg:pb-32 overflow-hidden border-b border-stone-200">
+    <header class="relative pt-40 pb-20 lg:pt-48 lg:pb-32 overflow-hidden border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6">
                 Your IT is <span id="status-text" class="text-red-500 transition-colors duration-500">Disconnected</span>.
@@ -248,15 +242,13 @@
             <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-600 mb-4" id="instruction-text">
                 System offline. Tap the <strong>Server Rack</strong>, then tap the <strong>Workstation</strong> to patch the network and establish a secure connection with C4.
             </p>
-            <button id="skip-btn" class="text-sm font-medium text-slate-400 hover:text-blue-600 transition-colors mb-8 underline cursor-pointer relative z-20">
+            <button id="skip-btn" class="text-sm font-medium text-slate-400 hover:text-orange-500 transition-colors mb-8 underline cursor-pointer relative z-20">
                 Skip Diagnostics & View Site
             </button>
 
-            <!-- The Game Area -->
             <div class="interactive-bg relative w-full max-w-4xl mx-auto h-[350px] md:h-[450px] rounded-2xl border-2 border-slate-300 shadow-inner overflow-hidden flex justify-between items-center p-4 md:p-16">
                 <canvas id="cableCanvas" class="absolute inset-0 z-0 pointer-events-none w-full h-full"></canvas>
 
-                <!-- Left: Server Infrastructure -->
                 <div class="relative z-10 flex flex-col items-center group">
                     <div class="text-sm font-bold text-slate-500 mb-4 uppercase tracking-wider">Cloud / Server</div>
                     <div class="css-server">
@@ -270,14 +262,12 @@
                     </div>
                 </div>
 
-                <!-- Center: Connection Status indicator -->
                 <div class="relative z-10 flex flex-col items-center justify-center pointer-events-none">
-                    <div id="connection-badge" class="bg-slate-800 text-slate-300 px-4 py-2 rounded-full text-sm font-mono tracking-widest border border-slate-700 transition-all duration-500">
+                    <div id="connection-badge" class="bg-zinc-900 text-slate-300 px-4 py-2 rounded-full text-sm font-mono tracking-widest border border-slate-700 transition-all duration-500">
                         OFFLINE
                     </div>
                 </div>
 
-                <!-- Right: Client Workstation -->
                 <div class="relative z-10 flex flex-col items-center">
                     <div class="text-sm font-bold text-slate-500 mb-4 uppercase tracking-wider">Workstation</div>
                     <div class="css-monitor mb-10" id="pc-screen">
@@ -292,17 +282,15 @@
         </div>
     </header>
 
-    <!-- Stage 2: The Main Application -->
     <main id="main-content" class="hidden opacity-0 transition-opacity duration-1000 bg-white">
         
-        <!-- Welcome Banner -->
         <div class="bg-emerald-600 text-white py-4 shadow-md">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center font-medium flex items-center justify-center gap-3">
                 <span class="text-2xl">✓</span> Connection Established. Core services unlocked. Welcome to optimized IT.
             </div>
         </div>
 
-        <div class="bg-white py-6 border-b border-stone-200 overflow-hidden relative">
+        <div class="bg-white py-6 border-b border-slate-200 overflow-hidden relative">
             <div class="absolute left-0 top-0 w-16 md:w-32 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
             <div class="absolute right-0 top-0 w-16 md:w-32 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
             
@@ -314,7 +302,7 @@
                     <span class="tech-badge">3CX</span>
                     <span class="tech-badge">Dell</span>
                     <span class="tech-badge">Ubiquiti</span>
-                    <span class="tech-badge" style="color: #3b82f6; border-color: #bfdbfe; background-color: #eff6ff;">Blockchain Security</span>
+                    <span class="tech-badge" style="color: #f97316; border-color: #fed7aa; background-color: #fff7ed;">Blockchain Security</span>
                 </div>
                 <div class="flex w-1/2 justify-around items-center px-4">
                     <span class="tech-badge">Microsoft 365</span>
@@ -323,18 +311,15 @@
                     <span class="tech-badge">3CX</span>
                     <span class="tech-badge">Dell</span>
                     <span class="tech-badge">Ubiquiti</span>
-                    <span class="tech-badge" style="color: #3b82f6; border-color: #bfdbfe; background-color: #eff6ff;">Blockchain Security</span>
+                    <span class="tech-badge" style="color: #f97316; border-color: #fed7aa; background-color: #fff7ed;">Blockchain Security</span>
                 </div>
             </div>
         </div>
 
-        <section class="py-20 bg-stone-50 border-b border-stone-200" id="services">
-
-        <!-- Services Section -->
-        <section class="py-20 bg-stone-50 border-b border-stone-200" id="services">
+        <section class="py-20 bg-slate-50 border-b border-slate-200" id="services">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16 reveal-section">
-                    <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Infrastructure Diagnostic</h2>
+                    <h2 class="text-base text-orange-500 font-semibold tracking-wide uppercase">Infrastructure Diagnostic</h2>
                     <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 sm:text-4xl">
                         Comprehensive IT Architecture
                     </p>
@@ -344,30 +329,26 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Service 1 -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 hover:shadow-lg transition-shadow duration-300 reveal-section">
-                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-2xl mb-6">&#9881;</div>
+                        <div class="w-12 h-12 bg-orange-100 text-orange-500 rounded-lg flex items-center justify-center text-2xl mb-6">⚙</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Managed IT Services</h3>
                         <p class="text-slate-600 text-sm leading-relaxed mb-4">Proactive monitoring and maintenance of your entire infrastructure. We resolve issues before they cause downtime.</p>
                     </div>
 
-                    <!-- Service 2 -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 hover:shadow-lg transition-shadow duration-300 reveal-section" style="transition-delay: 100ms;">
-                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-2xl mb-6">&#128274;</div>
+                        <div class="w-12 h-12 bg-slate-100 text-slate-600 rounded-lg flex items-center justify-center text-2xl mb-6">🔒</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Cybersecurity</h3>
                         <p class="text-slate-600 text-sm leading-relaxed mb-4">Enterprise-grade defense against evolving threats. Protecting your data is our primary directive.</p>
                     </div>
 
-                    <!-- Service 3 -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 hover:shadow-lg transition-shadow duration-300 reveal-section" style="transition-delay: 200ms;">
-                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-2xl mb-6">&#9728;</div>
+                        <div class="w-12 h-12 bg-orange-100 text-orange-500 rounded-lg flex items-center justify-center text-2xl mb-6">☁</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Cloud Solutions</h3>
                         <p class="text-slate-600 text-sm leading-relaxed mb-4">Scalable, secure cloud environments that enable remote work and robust disaster recovery capabilities.</p>
                     </div>
 
-                    <!-- Service 4 -->
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 hover:shadow-lg transition-shadow duration-300 reveal-section" style="transition-delay: 300ms;">
-                        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-2xl mb-6">&#128187;</div>
+                        <div class="w-12 h-12 bg-slate-100 text-slate-600 rounded-lg flex items-center justify-center text-2xl mb-6">💻</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Helpdesk Support</h3>
                         <p class="text-slate-600 text-sm leading-relaxed mb-4">Responsive, local experts ready to assist your team. Stop waiting on hold and get back to business.</p>
                     </div>
@@ -375,19 +356,18 @@
             </div>
         </section>
 
-        <!-- Insights Section -->
         <section class="py-20 bg-white" id="insights">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div class="reveal-section">
-                        <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Data Analytics</h2>
+                        <h2 class="text-base text-orange-500 font-semibold tracking-wide uppercase">Data Analytics</h2>
                         <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 sm:text-4xl mb-6">The Cost of Disconnect</h3>
                         <p class="text-lg text-slate-600 mb-6">Running a business with unmanaged IT isn't just frustrating; it's a financial liability.</p>
                         
                         <div class="mt-8">
                             <label class="font-semibold text-slate-700 block mb-2">Select Perspective:</label>
                             <div class="flex space-x-2 bg-slate-100 p-1 rounded-lg inline-flex">
-                                <button id="btn-cost" class="px-4 py-2 bg-white shadow rounded-md text-sm font-bold text-blue-600 transition-all">Annual Costs</button>
+                                <button id="btn-cost" class="px-4 py-2 bg-white shadow rounded-md text-sm font-bold text-orange-500 transition-all">Annual Costs</button>
                                 <button id="btn-uptime" class="px-4 py-2 text-slate-500 hover:text-slate-800 rounded-md text-sm font-bold transition-all">Uptime %</button>
                             </div>
                         </div>
@@ -402,8 +382,7 @@
             </div>
         </section>
 
-        <!-- NEW CTA SECTION: Interactive Diagnostics -->
-        <section class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <section class="py-24 bg-black text-white relative overflow-hidden">
             <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
             
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 reveal-section">
@@ -411,36 +390,31 @@
                 <p class="text-xl text-slate-300 mb-10">
                     Take our 60-second interactive diagnostic to calculate your network's health score. Identify weaknesses before they become expensive downtime.
                 </p>
-                <button id="open-diagnostic-btn" class="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white text-xl font-bold rounded-lg transition-transform transform hover:scale-105 whitespace-nowrap shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                <button id="open-diagnostic-btn" class="px-10 py-5 bg-orange-500 hover:bg-orange-600 text-white text-xl font-bold rounded-lg transition-transform transform hover:scale-105 whitespace-nowrap shadow-[0_0_20px_rgba(249,115,22,0.4)]">
                     Initiate Free Diagnostics
                 </button>
             </div>
         </section>
 
-        <!-- Interactive Diagnostic Modal (Hidden by default) -->
-        <div id="diagnostic-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div id="diagnostic-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
             <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden transform scale-95 transition-transform duration-300" id="diagnostic-content">
                 
-                <!-- Modal Header -->
-                <div class="bg-slate-900 p-5 flex justify-between items-center text-white border-b border-blue-600/30">
+                <div class="bg-zinc-900 p-5 flex justify-between items-center text-white border-b border-orange-500/30">
                     <h3 class="font-bold flex items-center gap-3">
-                        <span class="w-3 h-3 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span> 
+                        <span class="w-3 h-3 rounded-full bg-orange-500 animate-pulse shadow-[0_0_8px_rgba(249,115,22,0.8)]"></span> 
                         C4 Network Scanner
                     </h3>
-                    <button id="close-modal-btn" class="text-slate-400 hover:text-white text-2xl font-bold">&times;</button>
+                    <button id="close-modal-btn" class="text-slate-400 hover:text-white text-2xl font-bold">×</button>
                 </div>
 
-                <!-- Progress Bar -->
                 <div class="w-full bg-slate-100 h-2">
-                    <div id="quiz-progress" class="bg-blue-600 h-2 transition-all duration-500 w-1/4"></div>
+                    <div id="quiz-progress" class="bg-orange-500 h-2 transition-all duration-500 w-1/4"></div>
                 </div>
 
-                <!-- Modal Body / Quiz Container -->
                 <div class="p-6 md:p-8 relative" id="quiz-container">
                     
-                    <!-- Step 1 -->
                     <div id="step-1" class="quiz-step block">
-                        <p class="text-sm font-bold text-blue-600 mb-2 uppercase tracking-wide">Question 1 of 3</p>
+                        <p class="text-sm font-bold text-orange-500 mb-2 uppercase tracking-wide">Question 1 of 3</p>
                         <h4 class="text-xl font-extrabold text-slate-900 mb-6">How many workstations (PCs/Macs) do you currently manage?</h4>
                         <div class="space-y-3">
                             <button class="quiz-opt" data-points="10">1 to 10 Workstations</button>
@@ -449,9 +423,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 2 -->
                     <div id="step-2" class="quiz-step hidden">
-                        <p class="text-sm font-bold text-blue-600 mb-2 uppercase tracking-wide">Question 2 of 3</p>
+                        <p class="text-sm font-bold text-orange-500 mb-2 uppercase tracking-wide">Question 2 of 3</p>
                         <h4 class="text-xl font-extrabold text-slate-900 mb-6">Are your systems backed up to a secure, offsite cloud environment automatically?</h4>
                         <div class="space-y-3">
                             <button class="quiz-opt" data-points="0">Yes, daily automated backups.</button>
@@ -460,9 +433,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 3 -->
                     <div id="step-3" class="quiz-step hidden">
-                        <p class="text-sm font-bold text-blue-600 mb-2 uppercase tracking-wide">Question 3 of 3</p>
+                        <p class="text-sm font-bold text-orange-500 mb-2 uppercase tracking-wide">Question 3 of 3</p>
                         <h4 class="text-xl font-extrabold text-slate-900 mb-6">When was your last professional IT security or firewall audit?</h4>
                         <div class="space-y-3">
                             <button class="quiz-opt" data-points="0">Within the last 6 months.</button>
@@ -471,15 +443,13 @@
                         </div>
                     </div>
 
-                    <!-- Analyzing State -->
                     <div id="step-analyzing" class="quiz-step hidden text-center py-10 relative overflow-hidden rounded-lg bg-slate-50 border border-slate-200">
                         <div class="scanner-bar"></div>
-                        <div class="text-4xl mb-4">&#9881;</div>
+                        <div class="text-4xl mb-4">⚙</div>
                         <h4 class="text-xl font-extrabold text-slate-900 mb-2">Analyzing Infrastructure...</h4>
                         <p class="text-slate-500 text-sm">Compiling vulnerability report based on your parameters.</p>
                     </div>
 
-                    <!-- Final Result & Form -->
                     <div id="step-result" class="quiz-step hidden">
                         <div class="text-center mb-6">
                             <p class="text-sm font-bold text-slate-500 uppercase">Estimated Vulnerability</p>
@@ -492,24 +462,23 @@
                             
                             <form id="lead-form" class="space-y-4">
                                 <div>
-                                    <input type="text" id="lead-name" required placeholder="Full Name" class="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-800">
+                                    <input type="text" id="lead-name" required placeholder="Full Name" class="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:outline-none text-slate-800">
                                 </div>
                                 <div>
-                                    <input type="tel" id="lead-phone" required placeholder="Phone Number" class="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-800">
+                                    <input type="tel" id="lead-phone" required placeholder="Phone Number" class="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:outline-none text-slate-800">
                                 </div>
                                 <div>
-                                    <input type="email" id="lead-email" required placeholder="Business Email" class="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-slate-800">
+                                    <input type="email" id="lead-email" required placeholder="Business Email" class="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:outline-none text-slate-800">
                                 </div>
-                                <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-md transition-colors shadow-md">
+                                <button type="submit" class="w-full bg-black hover:bg-zinc-800 text-white font-bold py-3 rounded-md transition-colors shadow-md">
                                     Claim Free Consultation
                                 </button>
                             </form>
                         </div>
                     </div>
                     
-                    <!-- Success Message -->
                     <div id="step-success" class="quiz-step hidden text-center py-8">
-                        <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">&#10003;</div>
+                        <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">✓</div>
                         <h4 class="text-2xl font-extrabold text-slate-900 mb-2">Transmission Successful</h4>
                         <p class="text-slate-600">Your network data has been securely logged. A C4 engineer will call you shortly at the number provided.</p>
                         <button id="close-success-btn" class="mt-8 px-6 py-2 border border-slate-300 rounded-md text-slate-600 hover:bg-slate-50 transition-colors font-medium">Return to Site</button>
@@ -519,22 +488,21 @@
             </div>
         </div>
 
-        <footer class="bg-slate-950 py-12 border-t border-slate-800">
+        <footer class="bg-black py-12 border-t border-zinc-900">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <div class="text-2xl font-black tracking-tighter text-blue-600 mb-4">C4</div>
+                <div class="text-2xl font-black tracking-tighter text-orange-600 mb-4">C4</div>
                 <p class="text-slate-500 text-sm leading-relaxed">
-                    &copy; 2026 C4 Computer Consulting. All network rights reserved.<br>
-                    <a href="https://www.google.com/maps/search/?api=1&query=7611+NY-68,+Ogdensburg,+NY+13669" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 transition-colors inline-flex items-center gap-1">
-                        &#128205; 7611 NY-68, Ogdensburg, NY 13669
+                    © 2026 C4 Computer Consulting. All network rights reserved.<br>
+                    <a href="https://www.google.com/maps/search/?api=1&query=7611+NY-68,+Ogdensburg,+NY+13669" target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors inline-flex items-center gap-1">
+                        📍 7611 NY-68, Ogdensburg, NY 13669
                     </a> | IT Support: 
-                    <a href="tel:+13153947008" class="hover:text-blue-500 transition-colors">(315) 394-7008</a><br>
-                    Email: <a href="mailto:support@c4tech.co" class="text-blue-500 hover:text-blue-400 transition-colors">support@c4tech.co</a>
+                    <a href="tel:+13153947008" class="hover:text-orange-500 transition-colors">(315) 394-7008</a><br>
+                    Email: <a href="mailto:support@c4tech.co" class="text-orange-500 hover:text-orange-400 transition-colors">support@c4tech.co</a>
                 </p>
             </div>
         </footer>
     </main>
 
-    <!-- Interactive Logic & App State Management -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -592,13 +560,13 @@
                 const isTerminal = document.body.classList.contains('terminal-mode');
 
                 if (isConnected) {
-                    ctx.strokeStyle = isTerminal ? '#22c55e' : '#10b981'; 
-                    ctx.shadowColor = isTerminal ? '#166534' : '#059669'; 
+                    ctx.strokeStyle = isTerminal ? '#22c55e' : '#e2e8f0'; 
+                    ctx.shadowColor = isTerminal ? '#166534' : '#cbd5e1'; 
                     ctx.shadowBlur = 15; ctx.stroke();
                     ctx.beginPath(); ctx.moveTo(x1, y1); ctx.bezierCurveTo(controlX1, controlY1, controlX2, controlY2, x2, y2);
                     ctx.lineWidth = 2; ctx.strokeStyle = '#ffffff'; ctx.setLineDash([10, 20]); ctx.lineDashOffset = -dashOffset; ctx.stroke(); ctx.setLineDash([]);
                 } else {
-                    ctx.strokeStyle = isTerminal ? '#22c55e' : '#3b82f6'; 
+                    ctx.strokeStyle = isTerminal ? '#22c55e' : '#f97316'; 
                     ctx.shadowBlur = isTerminal ? 10 : 0; 
                     ctx.shadowColor = isTerminal ? '#22c55e' : 'transparent';
                     ctx.stroke();
@@ -626,10 +594,10 @@
             portA.addEventListener('click', () => {
                 if (state.connectionStep === 0) {
                     state.connectionStep = 1;
-                    portA.classList.remove('pulse-active'); portA.classList.add('bg-blue-600');
+                    portA.classList.remove('pulse-active'); portA.classList.add('bg-orange-500');
                     portB.classList.remove('opacity-50', 'cursor-not-allowed'); portB.classList.add('pulse-active');
                     instructionText.innerHTML = "Connection initiated. Now <strong>tap the Workstation port</strong> to complete the circuit.";
-                    connectionBadge.innerText = "ROUTING..."; connectionBadge.classList.replace('bg-slate-800', 'bg-blue-900'); connectionBadge.classList.replace('text-slate-300', 'text-blue-200');
+                    connectionBadge.innerText = "ROUTING..."; connectionBadge.classList.replace('bg-zinc-900', 'bg-orange-900'); connectionBadge.classList.replace('text-slate-300', 'text-orange-200');
                     mousePos = getCenterCoords(portA);
                 }
             });
@@ -642,14 +610,15 @@
                 if (state.connectionStep === 2) return;
                 state.connectionStep = 2;
                 
-                portA.classList.remove('pulse-active', 'bg-blue-600'); portA.classList.add('connected');
+                portA.classList.remove('pulse-active', 'bg-orange-500'); portA.classList.add('connected');
                 portB.classList.remove('pulse-active', 'opacity-50', 'cursor-not-allowed'); portB.classList.add('connected');
                 statusText.innerText = "Connected"; statusText.classList.replace('text-red-500', 'text-emerald-500');
                 instructionText.innerHTML = "System online. Diagnostic complete. Data flowing securely.";
                 document.getElementById('skip-btn').classList.add('hidden');
-                connectionBadge.innerText = "ONLINE"; connectionBadge.className = "bg-emerald-900 text-emerald-300 px-4 py-2 rounded-full text-sm font-mono tracking-widest border border-slate-700 transition-all duration-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]";
+                connectionBadge.innerText = "ONLINE";
+                connectionBadge.className = "bg-emerald-900 text-emerald-300 px-4 py-2 rounded-full text-sm font-mono tracking-widest border border-slate-700 transition-all duration-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]";
                 serverStatus1.classList.replace('css-light-red', 'css-light-green'); serverStatus2.classList.replace('css-light-red', 'css-light-green');
-                pcScreen.innerHTML = ">_ sys.ready()<br>>_ sync_c4"; pcScreen.style.color = "#3b82f6";
+                pcScreen.innerHTML = ">_ sys.ready()<br>>_ sync_c4"; pcScreen.style.color = "#e2e8f0";
 
                 mainContent.classList.remove('hidden'); void mainContent.offsetWidth; mainContent.classList.replace('opacity-0', 'opacity-100');
 
@@ -682,7 +651,8 @@
             }
 
             function closeModal() {
-                modal.classList.replace('opacity-100', 'opacity-0'); modalContent.classList.replace('scale-100', 'scale-95');
+                modal.classList.replace('opacity-100', 'opacity-0');
+                modalContent.classList.replace('scale-100', 'scale-95');
                 setTimeout(() => { modal.classList.add('hidden'); resetQuiz(); }, 300);
             }
 
@@ -731,7 +701,7 @@
                     display.innerText = "ELEVATED RISK"; display.className = "text-4xl font-black my-2 text-amber-500";
                     message.innerText = "Your infrastructure has gaps that could lead to data loss or breaches.";
                 } else {
-                    display.innerText = "MODERATE RISK"; display.className = "text-4xl font-black my-2 text-blue-600";
+                    display.innerText = "MODERATE RISK"; display.className = "text-4xl font-black my-2 text-orange-500";
                     message.innerText = "While generally secure, an expert audit can find hidden inefficiencies.";
                 }
             }
@@ -804,14 +774,14 @@
                     labels: ['Hardware Break/Fix', 'Downtime Losses', 'Security Breaches', 'Proactive Maintenance', 'Total Annual Estimate'],
                     datasets: [
                         { label: 'Unmanaged IT', data: [15000, 35000, 20000, 0, 70000], backgroundColor: 'rgba(239, 68, 68, 0.7)', borderColor: 'rgb(239, 68, 68)', borderWidth: 1 },
-                        { label: 'C4 Managed Services', data: [5000, 2000, 0, 24000, 31000], backgroundColor: 'rgba(59, 130, 246, 0.7)', borderColor: 'rgb(59, 130, 246)', borderWidth: 1 }
+                        { label: 'C4 Managed Services', data: [5000, 2000, 0, 24000, 31000], backgroundColor: 'rgba(249, 115, 22, 0.7)', borderColor: 'rgb(249, 115, 22)', borderWidth: 1 }
                     ]
                 },
                uptime: {
                     labels: ['Q1', 'Q2', 'Q3', 'Q4'],
                     datasets: [
                         { label: 'Unmanaged IT %', data: [98.5, 76.2, 94.1, 81.5], borderColor: 'rgb(239, 68, 68)', backgroundColor: 'rgba(239, 68, 68, 0.1)', fill: true, tension: 0.3 },
-                        { label: 'C4 Managed Services %', data: [99.9, 99.9, 99.8, 99.9], borderColor: 'rgb(16, 185, 129)', backgroundColor: 'rgba(16, 185, 129, 0.1)', fill: true, tension: 0.4 }
+                        { label: 'C4 Managed Services %', data: [99.9, 99.9, 99.8, 99.9], borderColor: 'rgb(148, 163, 184)', backgroundColor: 'rgba(148, 163, 184, 0.2)', fill: true, tension: 0.4 }
                     ]
                 }
             };
@@ -847,8 +817,8 @@
                 state.chartInstance.options.scales.y.ticks.callback = function(v) { return isCost ? '$' + (v/1000) + 'k' : v + '%'; };
                 state.chartInstance.update();
                 
-                document.getElementById('btn-cost').className = isCost ? "px-4 py-2 bg-white shadow rounded-md text-sm font-bold text-blue-600 transition-all" : "px-4 py-2 text-slate-500 hover:text-slate-800 rounded-md text-sm font-bold transition-all";
-                document.getElementById('btn-uptime').className = !isCost ? "px-4 py-2 bg-white shadow rounded-md text-sm font-bold text-blue-600 transition-all" : "px-4 py-2 text-slate-500 hover:text-slate-800 rounded-md text-sm font-bold transition-all";
+                document.getElementById('btn-cost').className = isCost ? "px-4 py-2 bg-white shadow rounded-md text-sm font-bold text-orange-500 transition-all" : "px-4 py-2 text-slate-500 hover:text-slate-800 rounded-md text-sm font-bold transition-all";
+                document.getElementById('btn-uptime').className = !isCost ? "px-4 py-2 bg-white shadow rounded-md text-sm font-bold text-orange-500 transition-all" : "px-4 py-2 text-slate-500 hover:text-slate-800 rounded-md text-sm font-bold transition-all";
             }
 
             function initScrollReveal() {
@@ -873,7 +843,7 @@
             });
 
             // Trigger 2: Triple Click Logos (Mobile/Desktop)
-            const footerLogo = document.querySelector('footer .text-blue-600');
+            const footerLogo = document.querySelector('footer .text-orange-600');
             const mainLogo = document.getElementById('main-logo');
             
             // Array of all elements that can trigger the easter egg via triple-click
@@ -913,7 +883,8 @@
             }
 
             // INIT
-            resizeCanvas(); animate();
+            resizeCanvas();
+            animate();
         });
     </script>
 </body>
