@@ -872,25 +872,30 @@
                 }
             });
 
-            // Trigger 2: Triple Click Footer Logo (Mobile/Desktop)
-            // Finds the "C4" text in the footer
+            // Trigger 2: Triple Click Logos (Mobile/Desktop)
             const footerLogo = document.querySelector('footer .text-blue-600');
-            let clickCount = 0;
-            let clickTimer;
-            if(footerLogo) {
-                footerLogo.style.cursor = 'crosshair';
-                footerLogo.addEventListener('click', () => {
-                    clickCount++;
-                    clearTimeout(clickTimer);
-                    if (clickCount >= 3) {
-                        toggleTerminalMode();
-                        clickCount = 0;
-                    } else {
-                        // Reset clicks if they don't tap fast enough
-                        clickTimer = setTimeout(() => { clickCount = 0; }, 800);
-                    }
-                });
-            }
+            const mainLogo = document.getElementById('main-logo');
+            
+            // Array of all elements that can trigger the easter egg via triple-click
+            const secretElements = [footerLogo, mainLogo];
+
+            secretElements.forEach(el => {
+                if(el) {
+                    let clickCount = 0;
+                    let clickTimer;
+                    el.addEventListener('click', () => {
+                        clickCount++;
+                        clearTimeout(clickTimer);
+                        if (clickCount >= 3) {
+                            toggleTerminalMode();
+                            clickCount = 0;
+                        } else {
+                            // Reset clicks if they don't tap fast enough
+                            clickTimer = setTimeout(() => { clickCount = 0; }, 800);
+                        }
+                    });
+                }
+            });
 
             function toggleTerminalMode() {
                 document.body.classList.toggle('terminal-mode');
