@@ -281,7 +281,7 @@
                 <div class="relative z-10 flex flex-col items-center">
                     <div class="text-sm font-bold text-slate-500 mb-4 uppercase tracking-wider">Workstation</div>
                     <div class="css-monitor mb-10" id="pc-screen">
-                        >_ err: no_net
+                        <span id="monitor-text">>_ err: no_net</span>
                         <div class="css-monitor-base"></div>
                     </div>
                     <div id="portB" class="port opacity-50 cursor-not-allowed mt-4" tabindex="0" role="button" aria-label="Connect Workstation">
@@ -524,7 +524,17 @@
                 quizScore: 0,
                 quizStep: 1
             };
-
+// --- MONITOR GLITCH HINT ---
+            const monitorText = document.getElementById('monitor-text');
+            setInterval(() => {
+                if (state.connectionStep === 0) {
+                    monitorText.innerText = ">_ hint: tap_logo_x3";
+                    setTimeout(() => {
+                        if (state.connectionStep === 0) monitorText.innerText = ">_ err: no_net";
+                    }, 800); // Glitch shows for less than a second
+                }
+            }, 7000); // Happens every 7 seconds
+            
             // --- HERO GAME LOGIC ---
             const canvas = document.getElementById('cableCanvas');
             const ctx = canvas.getContext('2d');
