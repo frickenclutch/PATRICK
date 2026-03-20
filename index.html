@@ -531,9 +531,9 @@
                     monitorText.innerText = ">_ hint: tap_logo_x3";
                     setTimeout(() => {
                         if (state.connectionStep === 0) monitorText.innerText = ">_ err: no_net";
-                    }, 2000); // Glitch shows for less than a second
+                    }, 2000); // Glitch shows for 2 seconds
                 }
-            }, 7000); // Happens every 7 seconds
+            }, 5000); // Happens every 5 seconds
             
             // --- HERO GAME LOGIC ---
             const canvas = document.getElementById('cableCanvas');
