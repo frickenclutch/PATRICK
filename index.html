@@ -211,19 +211,36 @@
 
         <div class="w-full bg-white/90 backdrop-blur-md border-b border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-               <div class="flex justify-center md:justify-between items-center py-4 md:py-0 md:h-32">
-                    <div class="flex items-center">
+                <div class="flex justify-between items-center h-24 md:h-32 relative">
+
+                    <div class="md:hidden w-12"></div>
+
+                    <div class="flex items-center justify-center absolute md:relative left-1/2 md:left-auto transform -translate-x-1/2 md:translate-x-0">
                         <a href="#" id="main-logo" aria-label="Return to top" class="transition-transform hover:scale-105">
-                            <img src="/android-chrome-512x512.png" alt="C4 Computer Consulting" class="h-20 md:h-24 w-auto drop-shadow-sm">
+                            <img src="/android-chrome-512x512.png" alt="C4 Computer Consulting" class="h-16 md:h-24 w-auto drop-shadow-sm">
                         </a>
                     </div>
-                    </div>
-                    <div class="hidden md:flex space-x-8 items-center">
+
+                    <div class="hidden md:flex space-x-8 items-center ml-auto">
                         <a href="#services" class="nav-link text-slate-600 hover:text-orange-500 font-medium transition">Services</a>
                         <a href="#insights" class="nav-link text-slate-600 hover:text-orange-500 font-medium transition">Insights</a>
+                        <a href="#" id="open-contact-btn" class="text-slate-600 hover:text-orange-500 font-medium transition">Contact Us</a>
                         <a href="https://portal.c4tech.io/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-black hover:bg-zinc-800 text-white rounded-lg font-medium transition shadow-md border border-zinc-800">Client Portal</a>
                     </div>
+
+                    <div class="md:hidden flex items-center justify-end w-12">
+                        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-slate-800 text-3xl hover:text-orange-500 focus:outline-none">
+                            ☰
+                        </button>
+                    </div>
                 </div>
+            </div>
+
+            <div id="mobile-menu" class="hidden md:hidden bg-slate-50 border-t border-slate-200 shadow-inner">
+                <a href="#services" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-4 px-6 text-slate-700 font-bold border-b border-slate-200">Services</a>
+                <a href="#insights" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block py-4 px-6 text-slate-700 font-bold border-b border-slate-200">Insights</a>
+                <a href="#" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('contact-modal').classList.remove('hidden'); setTimeout(() => { document.getElementById('contact-modal').classList.replace('opacity-0', 'opacity-100'); document.getElementById('contact-content').classList.replace('scale-95', 'scale-100'); }, 10);" class="block py-4 px-6 text-slate-700 font-bold border-b border-slate-200">Contact Us</a>
+                <a href="https://portal.c4tech.io/" target="_blank" class="block py-4 px-6 text-orange-600 font-black bg-orange-50">Client Portal →</a>
             </div>
         </div>
     </nav>
